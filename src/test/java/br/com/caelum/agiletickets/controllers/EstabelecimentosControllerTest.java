@@ -37,7 +37,7 @@ public class EstabelecimentosControllerTest {
 		Estabelecimento estabelecimento = new Estabelecimento();
 		estabelecimento.setEndereco("Um endereco");
 
-		controller.adiciona(estabelecimento);
+		controller.adicionaEstabelecimento(estabelecimento);
 
 		verifyNoMoreInteractions(diretorio);
 	}
@@ -47,7 +47,7 @@ public class EstabelecimentosControllerTest {
 		Estabelecimento estabelecimento = new Estabelecimento();
 		estabelecimento.setNome("Um nome");
 
-		controller.adiciona(estabelecimento);
+		controller.adicionaEstabelecimento(estabelecimento);
 
 		verifyNoMoreInteractions(diretorio);
 	}
@@ -58,7 +58,7 @@ public class EstabelecimentosControllerTest {
 		estabelecimento.setNome("Um nome");
 		estabelecimento.setEndereco("Um endereco");
 
-		controller.adiciona(estabelecimento);
+		controller.adicionaEstabelecimento(estabelecimento);
 
 		verify(diretorio).adiciona(estabelecimento);
 	}
