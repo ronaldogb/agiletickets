@@ -3,7 +3,13 @@ package br.com.caelum.agiletickets.models;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalTime;
 import org.junit.Test;
+import org.testng.Assert;
 
 public class EspetaculoTest {
 
@@ -80,4 +86,66 @@ public class EspetaculoTest {
 
 		return sessao;
 	}
+	
+	@Test	
+	public void CriaSessaoComDataFimMaiorQueDataInicioEPeriodicidadeDiaria () {
+		LocalDate dtInicio = new LocalDate();
+		LocalDate dtFim = dtInicio.plusDays(2);
+		LocalTime horario = new LocalTime();
+		Espetaculo esp = new Espetaculo();
+		
+		List<Sessao> sessoes = esp.criaSessoes(dtInicio, dtFim, horario, Periodicidade.DIARIA);
+		
+		Assert.assertEquals(3, sessoes.size());
+		
+		Sessao sessaoCriada = sessoes.get(0);
+		
+		DateTime dataHoraSessao = dtInicio.toDateTime(horario);
+		
+		Assert.assertEquals( dataHoraSessao, sessaoCriada.getInicio());		
+	
+	}
+	@Test	
+	public void CriaSessaoComPeriodoDeUmDiaPeriodicidadeDiaria () {
+		LocalDate dtInicio = new LocalDate();
+		LocalDate dtFim = new LocalDate();
+		LocalTime horario = new LocalTime();
+		Espetaculo esp = new Espetaculo();
+		
+		List<Sessao> sessoes = esp.criaSessoes(dtInicio, dtFim, horario, Periodicidade.DIARIA);
+		
+		Assert.assertEquals(1, sessoes.size());
+		
+		Sessao sessaoCriada = sessoes.get(0);
+		
+		DateTime dataHoraSessao = dtInicio.toDateTime(horario);
+		
+		Assert.assertEquals( dataHoraSessao, sessaoCriada.getInicio());		
+	
+	}
+	
+	@Test
+	public void NaoCriaSessoesSeDataFinalEhMenorQueDataInicial() {
+		LocalDate dtInicio = new LocalDate();
+		LocalDate dtFim = dtInicio.minusDays(1);
+		LocalTime horario = new LocalTime();
+		Espetaculo esp = new Espetaculo();	
+		
+		List<Sessao> sessoes = esp.criaSessoes(dtInicio, dtFim, horario, Periodicidade.DIARIA);
+		
+		Assert.assertEquals(0, sessoes.size());
+	}
+	
+	@Test
+	public void NaoCriaSessoesSeHorarioEhNulo() {
+		LocalDate dtInicio = new LocalDate();
+		LocalDate dtFim = new LocalDate();
+		LocalTime horario = null;
+		Espetaculo esp = new Espetaculo();	
+		
+		List<Sessao> sessoes = esp.criaSessoes(dtInicio, dtFim, horario, Periodicidade.DIARIA);
+		Assert.assertEquals(0, sessoes.size());
+		
+	}
+
 }
