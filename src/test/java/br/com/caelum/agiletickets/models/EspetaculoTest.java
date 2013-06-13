@@ -147,5 +147,31 @@ public class EspetaculoTest {
 		Assert.assertEquals(0, sessoes.size());
 		
 	}
+	
+	@Test
+	public void CriaSessaoComPeriodoDeDuasSemanasEPeriodicidadeSemanal() {
+		LocalDate dtInicio = new LocalDate();
+		LocalDate dtFim	= new LocalDate(2013, 06, 27);
+		LocalTime horario = new LocalTime();
+		Espetaculo esp = new Espetaculo();
+		
+		List<Sessao> sessoes = esp.criaSessoes(dtInicio, dtFim, horario, Periodicidade.SEMANAL);
+		Assert.assertEquals(3, sessoes.size());
+		Assert.assertEquals("13/06/13", sessoes.get(0).getDia());
+		Assert.assertEquals("20/06/13", sessoes.get(1).getDia());
+		Assert.assertEquals("27/06/13", sessoes.get(2).getDia());
+	}
+	
+	@Test
+	public void CriaSessaoComPeriodoDeUmaSemanaEPeriodicidadeSemanal() {
+		LocalDate dtInicio = new LocalDate();
+		LocalDate dtFim	= new LocalDate(2013, 06, 19);
+		LocalTime horario = new LocalTime();
+		Espetaculo esp = new Espetaculo();
+		
+		List<Sessao> sessoes = esp.criaSessoes(dtInicio, dtFim, horario, Periodicidade.SEMANAL);
+		Assert.assertEquals(1, sessoes.size());
+		Assert.assertEquals("13/06/13", sessoes.get(0).getDia());
+	}
 
 }
