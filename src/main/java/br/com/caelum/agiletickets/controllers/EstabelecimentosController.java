@@ -33,8 +33,7 @@ public class EstabelecimentosController {
 	}
 
 	@Post @Path("/estabelecimentos")
-	public void adiciona(final Estabelecimento estabelecimento) {
-		// validando!
+	public void adicionaEstabelecimento(final Estabelecimento estabelecimento) {
 		validator.checking(new Validations() {{
 			that(!Strings.isNullOrEmpty(estabelecimento.getNome()), "estabelecimento.nome","nome.nulo");
 			that(!Strings.isNullOrEmpty(estabelecimento.getEndereco()), "estabelecimento.endereco","endereco.nulo");
@@ -43,9 +42,5 @@ public class EstabelecimentosController {
 
 		diretorio.adiciona(estabelecimento);
 		result.redirectTo(this).lista();
-	}
-
-	private boolean ehbranco(String a) {
-		return Strings.isNullOrEmpty(a);
 	}
 }
